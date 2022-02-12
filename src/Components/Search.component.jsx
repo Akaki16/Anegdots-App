@@ -22,7 +22,7 @@ const Search = ({
             </form>
             {/* end of form */}
             <button onClick={handleAddAnegdote} type='button'>
-                Add Anegdote <i className="fas fa-plus-circle"></i>
+                Add Anegdot <i className="fas fa-plus-circle"></i>
             </button>
         </section>
         // end of section
