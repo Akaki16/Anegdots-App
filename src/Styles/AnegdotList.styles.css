@@ -1,0 +1,7 @@
+.anegdot-list {
+    transform: translateY(50px);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
