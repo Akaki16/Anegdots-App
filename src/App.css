@@ -38,4 +38,12 @@ html, body {
   .modal .modal-content {
     width: 90%;
   }
+
+  .anegdot {
+    width: 90%;
+  }
+
+  .footer {
+    font-size: 17px;
+  }
 }
