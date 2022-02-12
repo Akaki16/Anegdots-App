@@ -1,0 +1,37 @@
+.anegdot {
+    width: 600px;
+    height: auto;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 6px;
+    margin: 20px;
+    padding: 20px;
+    transition: 0.4s;
+}
+
+.anegdot:hover {
+    background: rgb(228, 226, 226);
+}
+
+.anegdot p {
+    font-size: 1.5rem;
+    margin: 15px;
+    word-wrap: break-word;
+}
+
+.anegdot-container {
+    display: flex;
+}
+
+.anegdot h4 {
+    font-size: 19px;
+    font-weight: normal;
+    margin: 15px;
+}
+
+.anegdot button {
+    width: 100px;
+    font-size: 19px;
+    outline: none;
+    cursor: pointer;
+}
