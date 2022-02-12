@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../Styles/Anegdot.styles.css';
 
 const Anegdot = ({ anegdot }) => {
     const { text, likes, category } = anegdot;
     return (
-        <div className='anegdote'>
-            <article>
-                <p>{text}</p>
-            </article>
-            <div className='anegdote-container'>
-                <h3>Category: {category}</h3>
-                <h3>Likes: {likes}</h3>
+        <div className='anegdot'>
+            <p>{text}</p>
+            <h4>Category: {category}</h4>
+            <div className='anegdot-container'>
+                <h4>Likes: {likes}</h4>
                 <button type='button'>
                     Like
                 </button>
