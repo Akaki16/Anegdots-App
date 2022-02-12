@@ -9,7 +9,11 @@ const AddAnegdote = ({
     handleAnegdotNameChange,
     handleAnegdotCategory,
     handleAnegdotCategoryChange,
-    handleSubmit
+    handleSubmit,
+    anegdotMessage,
+    categoryMessage,
+    messageColor,
+    inputColor
 }) => {
     return (
         // start of modal div
@@ -18,7 +22,7 @@ const AddAnegdote = ({
             <div className='modal-content'>
                 {/* start of modal header div */}
                 <div className='modal-header'>
-                    <h2>Add Anegdote</h2>
+                    <h2>Add Anegdot</h2>
                     <i onClick={handleModalClose} className="fas fa-times-circle fa-2x"></i>
                 </div>
                 {/* end of modal header div */}
@@ -30,19 +34,21 @@ const AddAnegdote = ({
                     {/* start of form */}
                     <form onSubmit={handleSubmit} className='add-form'>
                         <div className='form-group'>
-                            <label htmlFor='anegdote'>Anegdote</label>
+                            <label htmlFor='anegdote'>Anegdot</label>
                             <textarea
+                                style={{ border: `2px solid ${inputColor}` }}
                                 htmlFor='anegdote'
                                 id='anegdote'
-                                placeholder='Enter the anegdote'
+                                placeholder='Enter the anegdot'
                                 autoComplete='off'
                                 value={handleAnegdotName}
                                 onChange={handleAnegdotNameChange}
                             />
+                            <small style={{ margin: '5px', color: messageColor }}>{anegdotMessage}</small>
                         </div>
                         <div className='form-group'>
                             <label htmlFor="category">Category</label>
-                            <select autoComplete='off' htmlFor="category" value={handleAnegdotCategory}onChange={handleAnegdotCategoryChange}>
+                            <select style={{ border: `2px solid ${inputColor}` }} autoComplete='off' htmlFor="category" value={handleAnegdotCategory}onChange={handleAnegdotCategoryChange}>
                                 <option value="">Choose category</option>
                                 <option value="humorous">Humorous</option>
                                 <option value="reminiscent">Reminiscent</option>
@@ -51,6 +57,7 @@ const AddAnegdote = ({
                                 <option value="cautionary">Cautionary</option>
                                 <option value="inspirational">Inspirational</option>
                             </select>
+                            <small style={{ margin: '5px', color: messageColor }}>{categoryMessage}</small>
                         </div>
                         <div className='form-group'>
                             <button type='submit'>
@@ -72,7 +79,7 @@ const AddAnegdote = ({
 }
 
 AddAnegdote.defaultProps = {
-    modalDisplay: 'none'
+    modalDisplay: 'none',
 };
 
 AddAnegdote.propTypes = {
