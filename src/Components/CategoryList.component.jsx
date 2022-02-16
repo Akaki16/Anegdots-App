@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../Styles/CategoryList.styles.css';
 
 const CategoryList = ({
+    handleAllClick,
     handleHumorousClick,
     handleReminiscentClick,
     handlePhilosophicalClick,
@@ -12,6 +13,9 @@ const CategoryList = ({
     return (
         // start of section
         <section className='category-list'>
+            <button onClick={handleAllClick} className='category-btn' type='button'>
+                All
+            </button>
             <button onClick={handleHumorousClick} className='category-btn' type='button'>
                 Humorous
             </button>
