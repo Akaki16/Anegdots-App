@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import anegdotService from './Services/anegdotService';
 import Header from './Components/Header.component';
 import CategoryList from './Components/CategoryList.component';
 import Search from './Components/Search.component';
@@ -10,13 +11,31 @@ const App = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [anegdots, setAnegdots] = useState([]);
   const [anegdot, setAnegdot] = useState('');
+  const [anegdotName, setAnegdotName] = useState('');
   const [anegdotCategory, setAnegdotCategory] = useState('');
   const [anegdotMessage, setAnegdotMessage] = useState('');
   const [anegdotCategoryMessage, setAnegdotCategoryMessage] = useState('');
   const [messageColor, setMessageColor] = useState('');
   const [inputColor, setInputColor] = useState('');
+  const [filteredAnegdots, setFilteredAnegdots] = useState([]);
+  const buttonRef = useRef(HTMLButtonElement);
 
   let modalDisplay = isModalVisible ? 'block' : 'none';
+
+  useEffect(() => {
+    async function getAnegdots() {
+      anegdotService
+      .getAll()
+      .then(response => {
+        setAnegdots(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+
+    getAnegdots();
+  }, []);
 
   useEffect(() => {
     function handleKeyDown() {
@@ -32,17 +51,20 @@ const App = () => {
   }, []);
 
   const addAnegdot = (anegdotObject) => {
-    // update state: copy old anegdotes and add new one
-    setAnegdots([...anegdots, anegdotObject]);
-
-    // after 500ms close modal and clear the fields
-    setTimeout(() => {
-      // close modal
-      setIsModalVisible(false);
-      // clear fields
-      setAnegdot('');
-      setAnegdotCategory('');
-    }, 500);
+      anegdotService
+      .create(anegdotObject)
+      .then(response => {
+          // update state: copy old anegdotes and add new one
+        setAnegdots([...anegdots, response.data]);
+        // close modal and clear the fields
+        setIsModalVisible(false);
+        // clear fields
+        setAnegdot('');
+        setAnegdotCategory('');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   const clearMessages = () => {
@@ -90,14 +112,57 @@ const App = () => {
     clearMessages();
   }
 
+  const showAnegdots = (anegdot_category) => {
+    const filtered_anegdots = anegdots.filter(anegdot => anegdot.category === anegdot_category);
+    setFilteredAnegdots(filtered_anegdots);
+  }
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value;
+    const filtered_anegdots = anegdots.filter(anegdot => {
+      return anegdot.text.toLowerCase().includes(searchValue.toLowerCase());
+    });
+    setFilteredAnegdots(filtered_anegdots);
+  }
+
+  let newLikes = 0;
+
+  const upVoteAnegdot = (id) => {
+    newLikes += 1;
+    // find anegdot based on id
+    const anegdot = anegdots.find(n => n.id === id);
+    // update anegdot likes
+    const likes = anegdot.likes + newLikes;
+    // copy old anegdot and assign new likes
+    const changedAnegdot = {...anegdot, likes};
+    // make HTTP put request to update anegdot on the server side
+    anegdotService
+    .update(id, changedAnegdot)
+    .then(response => {
+      setAnegdots(anegdots.map(anegdot => anegdot.id !== id ? anegdot : response.data));
+      setFilteredAnegdots(filteredAnegdots.map(anegdot => anegdot.id !== id ? anegdot : response.data));
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   return (
     <div>
       <Header />
       <CategoryList
-        handleHumorousClick={() => console.log('it works!')}
+        handleAllClick={() => showAnegdots('all')}
+        handleHumorousClick={() => showAnegdots('humorous')}
+        handleReminiscentClick={() => showAnegdots('reminiscent')}
+        handlePhilosophicalClick={() => showAnegdots('philosophical')}
+        handleCautionaryClick={() => showAnegdots('cautionary')}
+        handleInspirationalClick={() => showAnegdots('inspirational')}
       />
       <Search 
         handleAddAnegdote={() => setIsModalVisible(true)}
+        handleAnegdoteName={anegdotName}
+        handleAnegdoteNameChange={(e) => setAnegdotName(e.target.value)}
+        handleSearch={handleSearch}
       />
       <AddAnegdot
         modalDisplay={modalDisplay}
@@ -112,7 +177,11 @@ const App = () => {
         messageColor={messageColor}
         inputColor={inputColor}
       />
-      <AnegdotList anegdots={anegdots} />
+      <AnegdotList
+        anegdots={filteredAnegdots.length > 0 ? filteredAnegdots : anegdots}
+        onUpvote={upVoteAnegdot}
+        buttonRef={buttonRef}
+      />
     </div>
   );
 }
