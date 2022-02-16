@@ -13,7 +13,7 @@ const Header = ({ text }) => {
 }
 
 Header.defaultProps = {
-    text: 'Anegdots App'
+    text: 'Anegdotes App'
 };
 
 Header.propTypes = {
