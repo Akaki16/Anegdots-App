@@ -4,6 +4,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     color: #fff;
     text-align: center;
+    border-bottom: 4px solid rgb(109, 59, 59);
 }
 
 .header .header-title {
