@@ -11,7 +11,7 @@ html, body {
   height: 100%;
   overflow: auto;
   font-family: 'Roboto', sans-serif;
-  background: whitesmoke;
+  background: rgb(75, 74, 74);
   letter-spacing: 1.2px;
 }
 
@@ -40,7 +40,7 @@ html, body {
   }
 
   .anegdot {
-    width: 90%;
+    width: 95%;
   }
 
   .footer {
