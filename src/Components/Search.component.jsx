@@ -5,7 +5,8 @@ import '../Styles/Search.styles.css';
 const Search = ({
     handleAnegdoteName,
     handleAnegdoteNameChange,
-    handleAddAnegdote
+    handleAddAnegdote,
+    handleSearch
 }) => {
     return (
         // start of section
@@ -18,6 +19,7 @@ const Search = ({
                     autoComplete='off'
                     value={handleAnegdoteName}
                     onChange={handleAnegdoteNameChange}
+                    onKeyUp={handleSearch}
                 />
             </form>
             {/* end of form */}
