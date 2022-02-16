@@ -2,7 +2,11 @@
     width: 600px;
     height: auto;
     background: #fff;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(138, 104, 104, 0.35) 0px 5px 15px;
+    border-left: 2px solid blueviolet;
+    border-right: 2px solid forestgreen;
+    border-top: 2px solid darkorange;
+    border-bottom: 2px solid darkslateblue;
     border-radius: 6px;
     margin: 20px;
     padding: 20px;
@@ -10,7 +14,8 @@
 }
 
 .anegdot:hover {
-    background: rgb(228, 226, 226);
+    background: #333;
+    color: #fff;
 }
 
 .anegdot p {
