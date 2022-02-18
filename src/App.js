@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import anegdotService from './Services/anegdotService';
 import Header from './Components/Header.component';
 import CategoryList from './Components/CategoryList.component';
@@ -18,12 +18,11 @@ const App = () => {
   const [messageColor, setMessageColor] = useState('');
   const [inputColor, setInputColor] = useState('');
   const [filteredAnegdots, setFilteredAnegdots] = useState([]);
-  const buttonRef = useRef(HTMLButtonElement);
 
   let modalDisplay = isModalVisible ? 'block' : 'none';
 
   useEffect(() => {
-    async function getAnegdots() {
+    function getAnegdots() {
       anegdotService
       .getAll()
       .then(response => {
@@ -180,7 +179,6 @@ const App = () => {
       <AnegdotList
         anegdots={filteredAnegdots.length > 0 ? filteredAnegdots : anegdots}
         onUpvote={upVoteAnegdot}
-        buttonRef={buttonRef}
       />
     </div>
   );
