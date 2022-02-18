@@ -2,6 +2,8 @@
 
 Anegdotes App (frontend) was created with React - (a JavaScript framework for developing user interfaces)
 
+[live demo](https://anegdotes-feed.netlify.app/)
+
 ## Featuring
 
 * React - UI framework
